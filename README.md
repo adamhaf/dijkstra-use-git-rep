@@ -1,70 +1,83 @@
 # dijkstra-use-git-rep
 
-
+# Introdaction
 Today, as we all know we have apps that help us navigate.
 But, sometimes when we are in an enormous building (like a hospital mall, etc.…) the GPS isn’t precise enough to help us navigate.
-So, I develop a small program that can find the shortest path to our destination.
-I assume that I have this knowledge about the building: location of the junctions, rooms, and stairs, and the distance between them, so then I can build a graph that represent the building pathways, Then the program uses algorithm Dijkstra to find the shortest path to the user destination.
+So, I develop a small program that can find the shortest path to our destination.\
+I assume that I have this knowledge about the building: location of the junctions, rooms, and stairs, and the distance between them, so then I can build a graph that represents the building pathways, Then the program uses Dijkstra to find the shortest path to the user destination.
 
 Code files:
 
-Building-Infrastructure:
-I define here the classes for nodes, floor, and building. 
+## Building-Infrastructure:
+I define here the classes for nodes, floors, and buildings. 
 
-Node-Class:
-
-type – stairs/junction/rooms
-level – of the floor that this node is belong
-building number - of the building that this node is belong
-initial – that represent this node first we will write the initial of the type and then the number of the stairs/junction/rooms. 
-Example j1(junction number one) s2 ( stairs number 2)
-neighbors – a dictionary(key=initial ,value=weight) of the neighbors for this node
+### Node-Class:
+```python
+        """
+        :param type: junction, stairs, room
+        :param level: which level the node is in
+        :param building_number:
+        :param vertex: list of neighbors
+        """
+        self.type = type
+        self.level = level
+        self.building_number = building_number
+        self.initial = finding_initial(type)
+        self.neighbors = neighbors
+```
 
 Floor-Class:
-
-Level – the floor level
-Ptr Floor – a pointer to one of the nodes (usually junction number 1)
-edges – the edges of the graph stored in a dictionary (initial, weight)
-nodes – the nodes of the floor (junction stairs and room)
+```python
+        self.level = level # the floor level
+        self.ptr_floor = ptr_floor # a pointer to one of the nodes (usually junction number 1)
+        self.edges = {} # the edges of the graph stored in a dictionary (initial, weight)
+        self.nodes = rooms_and_junc_to_dic(ptr_junc_list,ptr_room_list) #the nodes of the floor (junction stairs and room)
+```
 
 Building-Class:
+```python 
+     self.name = name #name of the building
+     self.floor_list = floor_list # a list of ptr floor.
+     # the list is organized at position 0 we will find floor number 1 and so on.
+```
 
-name – the name of the building
-floor list – a python list of ptr floor, the list is organized that means that at position 0 we will find floor number 1 and so own.
-
-Text-To-Graph:
+## Text-To-Graph:
 
 Taking test files that represent the graph (according to the assumption down below) and making form it a graph.
-Path-Finder:
 
-This script manages the text-to-graph file, its send the information about the location of the files. After creating the graph its uses Dijkstra to find the shortest path and return it.
+## Path-Finder:
 
-Graph Assumptions:
+This script manages the text-to-graph file, it sends information about the location of the files to Text-to-graph, then Text-to-graph returns the building graph. After creating the graph it uses Dijkstra to find the shortest path and return a string of it.
 
-The Graph is undirected and weighted, for each floor we will have a separate text file. For each file we will work with those assumption for describing the floor: 
+## Graph Assumptions:
+
+The Graph is undirected and weighted, for each floor we will have a separate text file. For each file we will work with that assumption for describing the floor: 
 (line number)
 1)	Building number
 2)	Number of junctions
 3)	Number of stairs
 4)	Level number
-5)	for each junction or room, we will write a separate line that start with the type and then the number, 
-then sperate with space we write each neighbor of this node.
-format:
+5)	for each junction or room that is represented by a node, we will write a separate line that starts with the type and number of this node, 
+then after **one** space, each neighbor of this node will be separated by one space.
+##### format:
 Current junction/room (initial of neighbors 1) (weight of neighbors 1) (initial of neighbors 2) (weight of neighbors 2) ….
+```diff
 For example: j1 r1 3 r2 3
-Red: current floor
-Blue: j1 is a neighbor of r1 with weight of 3
-Orange: j1 is a neighbor of r2 with weight of 3
-	
-Stairs Assumptions:
-First, we like in all "normal" buildings' stairs are connected, also we will assume that the stairs are connected only to junction 1 on each floor (this assumption isn`t mandatory, it`s just for the added example).
+from left to right ->
+j1 is the current node (junction 1)
+r1 is the neighbor of j1 with a weight of 3
+r2 is the neighbor of j1 with a weight of 3
+```
+## Stairs Assumptions:
+
+First, like in all ordinary buildings' stairs are connected, also we will assume that the stairs are connected only to junction 1 on each floor (this assumption isn't mandatory, it`s just for the added example).
+
 1)	Building number
 2)	Number of stairs 
-3)	Next lines we be on this format: current level [ next node, weight, next node level]
-For example: s1 1 j2 3 2 j1 3
-Black: s1 is the current level
-Red: s1 is connected to j2 with weight of 3
-Orange: j1 of the second floor (underline-bold orange) connected to s1 with weight of 3
+3)	Next lines will be in this format: current level [ next node, weight, next node level]
 
-
-
+For example: s1 1 j2 3 2 j1 3 \
+from left to right -> \
+s1 is the current level \
+s1 is connected to j2 with a weight of 3 \
+j1 of the second floor connected to s1 with a weight of 3
