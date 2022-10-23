@@ -43,7 +43,7 @@ Building-Class:
 
 ## Text-To-Graph:
 
-Taking test files that represent the graph (according to the assumption down below) and making form it a graph.
+Taking text files that represent the graph (according to the assumption down below) and making form it a graph.
 
 ## Path-Finder:
 
