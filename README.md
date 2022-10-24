@@ -4,7 +4,7 @@
 Today, as we all know we have apps that help us navigate.
 But, sometimes when we are in an enormous building (like a hospital mall, etc.…) the GPS isn’t precise enough to help us navigate.
 So, I develop a small program that can find the shortest path to our destination.\
-I assume that I have this knowledge about the building: location of the junctions, rooms, and stairs, and the distance between them, so then I can build a graph that represents the building pathways, Then the program uses Dijkstra to find the shortest path to the user destination.
+I assume that I have this knowledge about the building: location of the junctions (hallways intersections), rooms, and stairs, and the distance between them, so then I can build a graph that represents the building pathways, then the program uses Dijkstra's algoritem to find the shortest path to the user's destination.
 
 Code files:
 
